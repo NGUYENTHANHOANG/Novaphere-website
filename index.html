@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NovaSphere – Search · Music · AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="dark-mode" data-page="home">
+
+  <!-- ── BACKGROUND CANVAS ── -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- ── NAVBAR ── -->
+  <nav id="navbar">
+    <div class="nav-logo" onclick="goHome()">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <circle cx="14" cy="14" r="12" stroke="url(#lg1)" stroke-width="2"/>
+        <circle cx="14" cy="14" r="6" fill="url(#lg2)"/>
+        <circle cx="14" cy="14" r="2.5" fill="#fff"/>
+        <defs>
+          <linearGradient id="lg1" x1="0" y1="0" x2="28" y2="28">
+            <stop offset="0%" stop-color="#a78bfa"/>
+            <stop offset="100%" stop-color="#22d3ee"/>
+          </linearGradient>
+          <linearGradient id="lg2" x1="0" y1="0" x2="28" y2="28">
+            <stop offset="0%" stop-color="#7c3aed"/>
+            <stop offset="100%" stop-color="#06b6d4"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <span>NovaSphere</span>
+    </div>
+
+    <div class="nav-search-wrap" id="nav-search-wrap">
+      <div class="nav-search-box">
+        <svg class="s-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input id="nav-q" type="text" placeholder="Search anything…" onkeydown="handleNavKey(event)" />
+      </div>
+    </div>
+
+    <div class="nav-actions">
+      <button class="nav-btn" id="private-btn" onclick="togglePrivate()" title="Private Mode">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span>Private</span>
+      </button>
+      <button class="nav-btn" onclick="toggleDark()" title="Dark/Light Mode" id="dark-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="nav-btn icon-only" onclick="openSpotify()" title="Spotify">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+      </button>
+      <button class="nav-btn icon-only" onclick="toggleAI()" title="AI Chat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── HOME PAGE ── -->
+  <main id="home-page" class="page active">
+    <div class="hero">
+      <div class="hero-logo">
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
+          <circle cx="36" cy="36" r="32" stroke="url(#hg1)" stroke-width="3"/>
+          <circle cx="36" cy="36" r="18" fill="url(#hg2)" opacity="0.8"/>
+          <circle cx="36" cy="36" r="8" fill="url(#hg3)"/>
+          <circle cx="36" cy="36" r="3" fill="#fff"/>
+          <defs>
+            <linearGradient id="hg1" x1="0" y1="0" x2="72" y2="72"><stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#22d3ee"/></linearGradient>
+            <linearGradient id="hg2" x1="0" y1="0" x2="72" y2="72"><stop offset="0%" stop-color="#7c3aed" stop-opacity="0.6"/><stop offset="100%" stop-color="#06b6d4" stop-opacity="0.6"/></linearGradient>
+            <linearGradient id="hg3" x1="0" y1="0" x2="72" y2="72"><stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#22d3ee"/></linearGradient>
+          </defs>
+        </svg>
+        <div class="hero-orbit"></div>
+        <div class="hero-orbit hero-orbit-2"></div>
+      </div>
+      <h1 class="hero-title">Nova<span>Sphere</span></h1>
+      <p class="hero-sub">Search · Music · Intelligence</p>
+
+      <div class="search-container" id="main-search">
+        <div class="search-box">
+          <svg class="s-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input id="main-q" type="text" placeholder="Tìm kiếm bất cứ điều gì…" autocomplete="off" onkeydown="handleMainKey(event)" oninput="showSuggestions(this.value)" />
+          <button class="voice-btn" onclick="startVoice()" title="Voice search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+          </button>
+          <button class="search-btn" onclick="doSearch()">Search</button>
+        </div>
+        <div class="suggestions-box" id="suggestions"></div>
+      </div>
+
+      <div class="shortcuts">
+        <a class="shortcut-card" href="https://youtube.com" target="_blank">
+          <div class="sc-icon yt">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </div>
+          <span>YouTube</span>
+        </a>
+        <a class="shortcut-card" href="https://gmail.com" target="_blank">
+          <div class="sc-icon gm">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
+          </div>
+          <span>Gmail</span>
+        </a>
+        <a class="shortcut-card" href="https://maps.google.com" target="_blank">
+          <div class="sc-icon mp">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          </div>
+          <span>Maps</span>
+        </a>
+        <a class="shortcut-card" href="#" onclick="openSpotify();return false;">
+          <div class="sc-icon sp">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+          </div>
+          <span>Spotify</span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- ── RESULTS PAGE ── -->
+  <main id="results-page" class="page">
+    <div class="results-wrap">
+      <div id="results-info"></div>
+      <div id="results-list"></div>
+      <div id="results-loader" class="loader-wrap" style="display:none">
+        <div class="loader-ring"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ── SPOTIFY MODAL ── -->
+  <div id="spotify-modal" class="modal-overlay" style="display:none" onclick="closeSpotifyModal(event)">
+    <div class="modal-card spotify-card">
+      <div class="modal-header">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#1DB954"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+        <h2>Spotify</h2>
+        <button class="close-btn" onclick="closeModal('spotify-modal')">✕</button>
+      </div>
+      <div class="spotify-setup" id="spotify-setup">
+        <p>Nhập Spotify Client ID để kết nối:</p>
+        <input id="sp-client-id" type="text" placeholder="Spotify Client ID…" class="modal-input" />
+        <button class="modal-btn" onclick="connectSpotify()">Kết nối Spotify</button>
+        <p class="hint">Lấy Client ID tại <a href="https://developer.spotify.com/dashboard" target="_blank">developer.spotify.com</a></p>
+      </div>
+      <div class="spotify-player-ui" id="spotify-player-ui" style="display:none">
+        <div class="sp-search-box">
+          <input id="sp-search-input" type="text" placeholder="Tìm bài hát, nghệ sĩ…" onkeydown="if(event.key==='Enter')searchSpotify()" />
+          <button onclick="searchSpotify()">Tìm</button>
+        </div>
+        <div id="sp-results" class="sp-results"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── VINYL PLAYER (FLOATING) ── -->
+  <div id="vinyl-player" style="display:none">
+    <div class="vinyl-disc-wrap">
+      <div class="vinyl-disc" id="vinyl-disc">
+        <div class="vinyl-grooves"></div>
+        <img id="vinyl-art" src="" alt="Album Art" />
+        <div class="vinyl-center"></div>
+      </div>
+      <div class="vinyl-arm" id="vinyl-arm"></div>
+    </div>
+    <div class="vinyl-info">
+      <div id="vinyl-title" class="vinyl-title">–</div>
+      <div id="vinyl-artist" class="vinyl-artist">–</div>
+      <div class="vinyl-progress-wrap">
+        <span id="v-curr">0:00</span>
+        <input id="vinyl-progress" type="range" min="0" max="100" value="0" class="v-slider" oninput="seekTrack(this.value)" />
+        <span id="v-dur">0:00</span>
+      </div>
+      <div class="vinyl-controls">
+        <button onclick="prevTrack()" title="Previous">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
+        </button>
+        <button class="play-btn" id="vinyl-play-btn" onclick="togglePlay()">
+          <svg id="play-ico" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <button onclick="nextTrack()" title="Next">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zm2-8.14 5.48 3.86L8 16.14V9.86zM16 6h2v12h-2z"/></svg>
+        </button>
+      </div>
+    </div>
+    <button class="vinyl-close" onclick="closeVinyl()">✕</button>
+    <div class="vinyl-drag-handle" id="vinyl-drag">⠿</div>
+  </div>
+
+  <!-- ── AI CHAT WIDGET ── -->
+  <div id="ai-widget">
+    <button id="ai-fab" onclick="toggleAI()" title="AI Chat">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2"/><path d="M8 12h.01M12 12h.01M16 12h.01"/></svg>
+    </button>
+    <div id="ai-panel" class="ai-panel" style="display:none">
+      <div class="ai-header">
+        <div class="ai-title">
+          <div class="ai-pulse"></div>
+          NovaMind AI
+        </div>
+        <div class="ai-header-actions">
+          <button onclick="clearAIChat()" title="Clear">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+          </button>
+          <button onclick="toggleAI()">✕</button>
+        </div>
+      </div>
+      <div id="ai-messages" class="ai-messages">
+        <div class="ai-msg bot">
+          <div class="msg-bubble">Xin chào! Tôi là NovaMind, trợ lý AI của NovaSphere. Tôi có thể giúp gì cho bạn? 🚀</div>
+        </div>
+      </div>
+      <div class="ai-input-wrap">
+        <input id="ai-input" type="text" placeholder="Hỏi bất cứ điều gì…" onkeydown="if(event.key==='Enter')sendAI()" />
+        <button onclick="sendAI()">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PRIVATE MODE INDICATOR ── -->
+  <div id="private-indicator" style="display:none">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    Private Mode
+  </div>
+
+  <!-- ── VOICE INDICATOR ── -->
+  <div id="voice-indicator" style="display:none">
+    <div class="voice-rings"><span></span><span></span><span></span></div>
+    <p>Đang nghe…</p>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="script.js"></script>
+  <script src="spotify.js"></script>
+  <script src="ai.js"></script>
+</body>
+</html>
